@@ -2,6 +2,8 @@
 datos/
 .DS_Store
 
+Validacion_Fuentes.ipynb
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
