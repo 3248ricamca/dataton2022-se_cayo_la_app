@@ -1,6 +1,7 @@
 import re
 from itertools import combinations
 from nltk.corpus import stopwords
+import json
 
 spanish_stop_words = set(stopwords.words('spanish'))
 
@@ -187,3 +188,17 @@ def conteo_palbras_lista(text, noticia):
     """
     contador = [bool(re.findall(word,noticia)) for word in text]
     return contador.count(True)
+
+
+def crear_json_aux(abspath):
+    # Diccionario de siglas a eliminar dentro del nombre del cliente
+    # Se ejecuta solo una vez solo si se requiere actualizar la lista de siglas a elimnar
+
+    lista_companias_filtro = ["CORP",'PLC','EPS','CI','SCA','INC','P.A.C','GROUP','SA','SAS','LTDA','LTD','LIMITED','ESP','SOCIEDAD','LP','BV','BIC']
+    
+    diccionario = {}
+    diccionario["siglas"] = [word.lower() for word in lista_companias_filtro]
+
+    with open(abspath,"w") as f:
+        json.dump(diccionario, f)
+    return print("Se escribio correctamente el archivo en",abspath)
