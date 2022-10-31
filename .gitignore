@@ -1,6 +1,7 @@
 ## Carpetas no necesarias
 datos/
 .DS_Store
+Model/
 
 Validacion_Fuentes.ipynb
 
