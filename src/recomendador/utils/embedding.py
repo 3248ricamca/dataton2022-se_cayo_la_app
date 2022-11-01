@@ -1,11 +1,14 @@
 import pandas as pd
 import numpy as np
 
-from nltk.words import stopwords
-from nltk import word_tokenize
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+
+from gensim.matutils import unitvec
+from gensim.models import Word2Vec
 
 
-spanish_stop_words = set(stopwords('spanish'))
+spanish_stop_words = set(stopwords.words('spanish'))
 
 def clean_text_news(df):
     df['len_titular'] = df['news_title'].apply(lambda x: len(x))
@@ -66,7 +69,7 @@ def similitud(v1,v2):
     """
     return np.dot(unitvec(v1), unitvec(v2))
 
-def df_categoria_noticia(df_noticas,lista_temas,modelo,vector_promedio_noticias):
+def asignacion_categoria(df_noticas,lista_temas,modelo,vector_promedio_noticias):
 
     diccionario_resultados = {}
     for variable in lista_temas:
@@ -114,3 +117,17 @@ def matrix_by_new(df,model, vocab, vector_size, output_name = None, run = False,
         mean_vector = np.load('array_mean_vector_model.npy')
         
     return mean_vector
+
+def run_model_word2vec(datos,run_model,path_model,vector_size,cores,save):
+
+    if run_model:
+        model = Word2Vec(datos,min_count=1,
+                        window=5,
+                        vector_size=vector_size,
+                        workers=cores-1,
+                        sg = 1)
+        if save:
+            model.save(path_model)
+
+    else:
+        model = Word2Vec.load(path_model)
