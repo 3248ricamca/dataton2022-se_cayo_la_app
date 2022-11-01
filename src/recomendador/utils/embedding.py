@@ -88,11 +88,11 @@ def asignacion_categoria(df_noticas,lista_temas,modelo,vector_promedio_noticias)
 
 def preprocessing_noticias(df):
 
-    print(df.shape)
+    # print(df.shape)
     df = df[df['news_text_content']!=' '].reset_index(drop=True).copy()
-    print(df.shape)
+    # print(df.shape)
     df = df.drop_duplicates()
-    print(df.shape)
+    # print(df.shape)
     data = df['news_text_content'].apply(create_tokenization)
     
     return [df, data]
@@ -118,7 +118,7 @@ def matrix_by_new(df,model, vocab, vector_size, output_name = None, run = False,
         
     return mean_vector
 
-def run_model_word2vec(datos,run_model,path_model,vector_size,cores,save):
+def run_model_word2vec(datos,run_model,path_model,vector_size,cores,save=False):
 
     if run_model:
         model = Word2Vec(datos,min_count=1,
@@ -131,3 +131,5 @@ def run_model_word2vec(datos,run_model,path_model,vector_size,cores,save):
 
     else:
         model = Word2Vec.load(path_model)
+    
+    return model
