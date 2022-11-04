@@ -3,6 +3,8 @@ datos/
 .DS_Store
 Model/
 
+nlp-bancolombia/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
